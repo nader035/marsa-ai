@@ -1,25 +1,25 @@
-import { Component, input, output, signal } from '@angular/core';
-import { LucideAngularModule, Moon, Sun, Languages, Github } from 'lucide-angular';
+import { Component, input, output } from '@angular/core';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+// استيراد الأيقونات المطلوبة
+import { faMoon, faSun, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [LucideAngularModule],
+  imports: [FaIconComponent], // استخدام المكون مباشرة بدل الموديول
   templateUrl: './navbar.html',
 })
 export class NavbarComponent {
-  // استقبال البيانات بالأسماء الجديدة التي استخدمتها في app.html
-  isDark = input.required<boolean>(); 
+  isDark = input.required<boolean>();
   lang = input.required<'ar' | 'en'>();
 
-  // إرسال الأحداث بالأسماء الجديدة
   toggleTheme = output<void>();
   toggleLang = output<void>();
 
-  // أيقونات Lucide
-  readonly moonIcon = Moon;
-  readonly sunIcon = Sun;
-  readonly langIcon = Languages;
-  readonly githubIcon = Github;
-
+  // تعريف أيقونات FontAwesome
+  readonly moonIcon = faMoon;
+  readonly sunIcon = faSun;
+  readonly langIcon = faGlobe; // أيقونة الكرة الأرضية بتبان أشيك للغات
+  readonly githubIcon = faGithub;
 }

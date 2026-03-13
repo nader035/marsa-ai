@@ -9,10 +9,14 @@ export class ShareService {
 
     try {
       // 1. توليد الـ Data URL
+      // تم إزالة لون الخلفية الثابت عشان يحترم الكارت في وضع الـ Light والـ Dark بشكل تلقائي
       const dataUrl = await toPng(node, {
         pixelRatio: 3,
         cacheBust: true,
-        backgroundColor: '#120202',
+        // أضفنا ستايل بسيط لضمان أن زوايا الكارت الدائرية تظهر بشكل سليم في الصورة
+        style: {
+          borderRadius: '3.5rem',
+        },
       });
 
       // 2. تحويل الـ Data URL إلى Blob يدوياً لتجاوز حماية الـ CSP
@@ -24,7 +28,8 @@ export class ShareService {
         await navigator.share({
           files: [file],
           title: 'Marsa AI',
-          text: 'صدى مشاعري عبر شجن AI',
+          // نص مباشر، احترافي، وبدون فلسفة، ومكتوب باللغتين عشان يرضي كل المستخدمين
+          text: 'مشاركة من تطبيق مَرسى | Shared via Marsa AI',
         });
       } else {
         this.downloadFallback(dataUrl);
@@ -48,7 +53,8 @@ export class ShareService {
 
   private downloadFallback(dataUrl: string) {
     const link = document.createElement('a');
-    link.download = `Marsa-echo-${Date.now()}.png`;
+    // تم تبسيط اسم الصورة المحملة
+    link.download = `Marsa-${Date.now()}.png`;
     link.href = dataUrl;
     link.click();
   }

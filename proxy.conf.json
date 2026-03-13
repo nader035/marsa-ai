@@ -1,10 +1,11 @@
 {
-  "/hf-api": {
+  "/marsa-api": {
     "target": "https://router.huggingface.co",
     "secure": true,
     "changeOrigin": true,
+    "logLevel": "debug",
     "pathRewrite": {
-      "^/hf-api": ""
+      "^/marsa-api": ""
     }
   }
 }

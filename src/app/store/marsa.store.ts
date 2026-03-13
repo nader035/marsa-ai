@@ -8,6 +8,7 @@ type MarsaState = {
   author: string;
   vibe: 'quote' | 'lyric' | 'quran' | 'none';
   isLoading: boolean;
+  lang: 'ar' | 'en'; // إضافة اللغة للحالة لسهولة الوصول إليها
 };
 
 const initialState: MarsaState = {
@@ -16,6 +17,7 @@ const initialState: MarsaState = {
   author: 'مَرسى',
   vibe: 'none',
   isLoading: false,
+  lang: 'ar',
 };
 
 export const MarsaStore = signalStore(
@@ -24,6 +26,9 @@ export const MarsaStore = signalStore(
   withMethods((store) => {
     const aiService = inject(AiService);
 
+    /**
+     * تأثير كتابة النص تدريجياً (Typewriter Effect)
+     */
     const animateText = (text: string) => {
       let current = '';
       const words = text.split(' ');
@@ -43,13 +48,22 @@ export const MarsaStore = signalStore(
     };
 
     return {
+      // تحديث النص المدخل من المستخدم
       updateInput(userInput: string) {
         patchState(store, { userInput });
       },
 
+      // تحديث اللغة (يتم استدعاؤها عند تغيير اللغة في الـ Navbar)
+      updateLang(lang: 'ar' | 'en') {
+        patchState(store, { lang });
+      },
+
+      /**
+       * استدعاء الذكاء الاصطناعي لتوليد النص
+       */
       async generateVibe(type: 'quote' | 'lyric' | 'quran') {
-        // نأخذ القيمة الحالية للمدخلات فوراً لتجنب أي تلاعب أثناء الطلب
         const currentInput = store.userInput();
+        const currentLang = store.lang(); // جلب اللغة الحالية من الـ Store
 
         if (currentInput.trim().length < 3) return;
 
@@ -57,15 +71,15 @@ export const MarsaStore = signalStore(
           patchState(store, {
             isLoading: true,
             generatedContent: '',
-            author: 'مَرسى',
+            author: currentLang === 'ar' ? 'جاري البحث...' : 'Searching...',
             vibe: type,
           });
 
-          // التعديل الجوهري: نمرر currentInput و type بشكل صريح جداً
-          const result = await aiService.generateMarsaEcho(currentInput, type);
+          // نرسل المدخل، النوع، واللغة للخدمة
+          const result = await aiService.generateMarsaEcho(currentInput, type, currentLang);
 
           patchState(store, {
-            author: result.author || 'مَرسى',
+            author: result.author,
             isLoading: false,
           });
 
@@ -75,8 +89,11 @@ export const MarsaStore = signalStore(
         } catch (error) {
           patchState(store, {
             isLoading: false,
-            generatedContent: 'انقطع صدى الروح.. حاول مجدداً.',
-            author: 'خطأ',
+            generatedContent:
+              currentLang === 'ar'
+                ? 'انقطع صدى الروح.. حاول مجدداً.'
+                : 'The connection failed.. try again.',
+            author: currentLang === 'ar' ? 'خطأ' : 'Error',
           });
         }
       },

@@ -1,40 +1,45 @@
-<nav
-  class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] Marsa-glass px-6 py-3 rounded-full flex items-center gap-6 shadow-2xl transition-all duration-500 w-[90%] max-w-2xl"
->
-  <button
-    (click)="toggleLang.emit()"
-    class="flex items-center gap-2 hover:text-Marsa-gold transition-colors font-sans text-[11px] tracking-widest uppercase outline-none cursor-pointer"
-  >
-    <lucide-icon [name]="langIcon" [size]="16" class="text-Marsa-gold"></lucide-icon>
-    <span class="hidden sm:inline">{{ lang() === 'ar' ? 'English' : 'عربي' }}</span>
-  </button>
-
-  <div class="h-4 w-[1px] bg-Marsa-gold/20"></div>
-
+<nav class="fixed top-0 left-0 w-full z-50 p-4 transition-all duration-500 animate-fade-in">
   <div
-    class="flex-1 flex justify-center text-xl font-bold gradient-Marsa tracking-[0.3em] font-sans"
+    class="max-w-7xl mx-auto Marsa-glass rounded-full px-6 py-3 flex items-center justify-between shadow-sm"
   >
-    {{ lang() === 'ar' ? 'مَرسىء Marsa' : 'Marsa مَرسىء' }}
+    <div class="flex items-center gap-2 cursor-pointer transition-transform hover:scale-105">
+      <span class="font-sans font-bold text-xl tracking-wide text-[var(--color-foreground)]">
+        {{ lang() === 'ar' ? 'مَرسىء' : 'Marsa' }}
+      </span>
+      <span
+        class="text-[9px] uppercase tracking-widest text-Marsa-gold font-bold px-2 py-0.5 bg-Marsa-gold/10 border border-Marsa-gold/40 rounded-full"
+      >
+        AI
+      </span>
+    </div>
+
+    <div class="flex items-center gap-1 sm:gap-3">
+      <a
+        href="https://github.com/nader035/marsa-ai"
+        target="_blank"
+        class="p-2.5 rounded-full hover:bg-[var(--color-background)] text-[var(--color-foreground)] transition-colors opacity-80 hover:opacity-100 flex items-center justify-center"
+        [title]="lang() === 'ar' ? 'سورس كود ءمَرسى' : 'Marsa Source Code'"
+      >
+        <fa-icon [icon]="githubIcon" class="text-[20px]"></fa-icon>
+      </a>
+
+      <div class="w-[1px] h-5 bg-[var(--color-Marsa-border)] mx-1"></div>
+
+      <button
+        (click)="toggleTheme.emit()"
+        class="p-2.5 rounded-full hover:bg-[var(--color-background)] text-[var(--color-foreground)] transition-colors opacity-80 hover:opacity-100 flex items-center justify-center"
+        [title]="lang() === 'ar' ? 'تبديل المظهر' : 'Toggle Theme'"
+      >
+        <fa-icon [icon]="isDark() ? sunIcon : moonIcon" class="text-[20px]"></fa-icon>
+      </button>
+
+      <button
+        (click)="toggleLang.emit()"
+        class="px-4 py-2 ml-1 rounded-full bg-[var(--color-background)] hover:bg-Marsa-gold/10 hover:text-Marsa-gold text-[var(--color-foreground)] transition-colors flex items-center gap-2 font-sans font-semibold text-sm border border-[var(--color-Marsa-border)] hover:border-Marsa-gold/40 shadow-sm"
+      >
+        <fa-icon [icon]="langIcon" class="text-[16px]"></fa-icon>
+        <span>{{ lang() === 'ar' ? 'English' : 'عربي' }}</span>
+      </button>
+    </div>
   </div>
-
-  <div class="h-4 w-[1px] bg-Marsa-gold/20"></div>
-
-  <button
-    (click)="toggleTheme.emit()"
-    class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 transition-all active:scale-90 outline-none cursor-pointer"
-  >
-    @if (isDark()) {
-      <lucide-icon
-        [name]="sunIcon"
-        [size]="18"
-        class="text-Marsa-gold animate-fade-in"
-      ></lucide-icon>
-    } @else {
-      <lucide-icon
-        [name]="moonIcon"
-        [size]="18"
-        class="text-Marsa-maroon animate-fade-in"
-      ></lucide-icon>
-    }
-  </button>
 </nav>

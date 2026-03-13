@@ -2,8 +2,8 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/marsa-api/(.*)",
-      "destination": "https://router.huggingface.co/$1"
+      "source": "/marsa-api/v1/chat/completions",
+      "destination": "https://router.huggingface.co/v1/chat/completions"
     }
   ]
 }

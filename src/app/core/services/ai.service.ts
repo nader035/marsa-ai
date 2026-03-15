@@ -19,7 +19,6 @@ export class AiService {
 
   // الرابط الجديد المتوافق مع الـ Router والبروكسي
   private readonly apiUrl = '/marsa-api/v1/chat/completions';
-
   async generateMarsaEcho(
     prompt: string,
     type: MarsaVibe,

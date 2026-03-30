@@ -1,14 +1,14 @@
 <section
-  class="max-w-2xl mx-auto p-8 sm:p-12  Marsa-glass rounded-[3rem] relative overflow-hidden shadow-lg border border-[var(--color-Marsa-border)] transition-all duration-500 animate-fade-in"
+  class="max-w-2xl mx-auto p-8 sm:p-12  glass-panel rounded-[3rem] relative overflow-hidden shadow-lg border border-[var(--color-glass-border)] transition-all duration-500 animate-fade-in"
 >
   <div
-    class="absolute -top-32 -left-32 w-80 h-80 bg-Marsa-maroon/5 blur-[100px] rounded-full pointer-events-none opacity-30 transition-opacity duration-700"
+    class="absolute -top-32 -left-32 w-80 h-80 bg-primary-accent/5 blur-[100px] rounded-full pointer-events-none opacity-30 transition-opacity duration-700"
   ></div>
 
   <div class="relative z-10">
     <header class="flex flex-col items-center text-center mb-10">
       <div
-        class="p-4 bg-[var(--color-background)] border border-[var(--color-Marsa-border)] rounded-3xl mb-3 text-Marsa-gold shadow-sm transition-colors duration-500 flex items-center justify-center"
+        class="p-4 bg-[var(--color-background)] border border-[var(--color-glass-border)] rounded-3xl mb-3 text-primary-accent shadow-sm transition-colors duration-500 flex items-center justify-center"
       >
         <fa-icon [icon]="sparklesIcon" class="text-[32px]"></fa-icon>
       </div>
@@ -17,18 +17,14 @@
         class="text-4xl sm:text-5xl font-sans font-bold tracking-tight text-[var(--color-foreground)] transition-colors duration-500"
       >
         @if (lang() === 'ar') {
-          بحث <span class="text-Marsa-gold">مَرسىء</span>
+          بحث <span class="text-primary-accent">مَرسىء</span>
         } @else {
-          Marsa <span class="text-Marsa-gold">Search</span>
+          Marsa <span class="text-primary-accent">Search</span>
         }
       </h2>
 
-      <p class="opacity-70 text-[15px] font-sans mt-3 tracking-wide text-[var(--color-foreground)]">
-        {{
-          lang() === 'ar'
-            ? 'ابحث عن آيات، أغاني، أو اقتباسات'
-            : 'Search for verses, songs, or quotes'
-        }}
+      <p class="opacity-70 text-[15px] font-sans mt-3 tracking-wide text-[var(--color-text-muted)]">
+        {{ 'chat.placeholder' | transloco }}
       </p>
     </header>
 
@@ -36,18 +32,16 @@
       <textarea
         [ngModel]="store.userInput()"
         (ngModelChange)="store.updateInput($event)"
-        [placeholder]="
-          lang() === 'ar' ? 'اكتب كلمة أو جملة للبحث...' : 'Type a word or phrase to search...'
-        "
-        class="w-full bg-[var(--color-background)] border border-[var(--color-Marsa-border)] rounded-[2.5rem] p-8 text-xl font-sans placeholder-[var(--color-foreground)]/40 focus:outline-none focus:border-Marsa-gold/60 focus:ring-1 focus:ring-Marsa-gold/20 transition-all duration-500 min-h-[200px] leading-relaxed shadow-inner resize-none text-[var(--color-foreground)]"
+        [placeholder]="'chat.placeholder' | transloco"
+        class="w-full bg-[var(--color-background)] border border-[var(--color-glass-border)] rounded-[2.5rem] p-8 text-xl font-sans placeholder-[var(--color-text-muted)] focus:outline-none focus:border-primary-accent/60 focus:ring-1 focus:ring-primary-accent/20 transition-all duration-500 min-h-[200px] leading-relaxed shadow-inner resize-none text-[var(--color-foreground)]"
         style="unicode-bidi: plaintext"
       ></textarea>
 
       <div
         class="absolute bottom-5 right-8 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500"
       >
-        <span class="text-[11px] text-Marsa-gold/70 font-sans font-medium tracking-wide uppercase">
-          {{ lang() === 'ar' ? 'مدعوم بالذكاء الاصطناعي' : 'AI Powered' }}
+        <span class="text-[11px] text-primary-accent/70 font-sans font-medium tracking-wide uppercase">
+          AI Powered
         </span>
       </div>
     </div>
@@ -56,45 +50,45 @@
       <button
         (click)="generate('quran')"
         [disabled]="store.isLoading() || !store.userInput()"
-        class="bg-[var(--color-background)] hover:bg-emerald-900/10 hover:text-emerald-600 dark:hover:text-emerald-400 text-[var(--color-foreground)] py-4 rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-30 cursor-pointer border border-[var(--color-Marsa-border)] hover:border-emerald-500/40 group font-sans font-medium text-lg shadow-sm"
+        class="bg-[var(--color-background)] hover:bg-emerald-900/10 hover:text-emerald-600 dark:hover:text-emerald-400 text-[var(--color-foreground)] py-4 rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-30 cursor-pointer border border-[var(--color-glass-border)] hover:border-emerald-500/40 group font-sans font-medium text-lg shadow-sm"
       >
         <fa-icon
           [icon]="bookIcon"
           class="text-[18px] text-emerald-600 dark:text-emerald-500 group-hover:scale-110 transition-transform"
         ></fa-icon>
-        <span>{{ lang() === 'ar' ? 'قرآن' : 'Quran' }}</span>
+        <span>{{ 'chat.btnquran' | transloco }}</span>
       </button>
 
       <button
         (click)="generate('lyric')"
         [disabled]="store.isLoading() || !store.userInput()"
-        class="bg-[var(--color-background)] hover:bg-Marsa-maroon/10 hover:text-Marsa-maroon text-[var(--color-foreground)] py-4 rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-30 cursor-pointer border border-[var(--color-Marsa-border)] hover:border-Marsa-maroon/40 font-sans font-medium text-lg shadow-sm"
+        class="bg-[var(--color-background)] hover:bg-secondary-accent/10 hover:text-secondary-accent text-[var(--color-foreground)] py-4 rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-30 cursor-pointer border border-[var(--color-glass-border)] hover:border-secondary-accent/40 font-sans font-medium text-lg shadow-sm"
       >
-        <fa-icon [icon]="musicIcon" class="text-[18px] text-Marsa-maroon"></fa-icon>
-        <span>{{ lang() === 'ar' ? 'أغنية' : 'Song' }}</span>
+        <fa-icon [icon]="musicIcon" class="text-[18px] text-secondary-accent"></fa-icon>
+        <span>{{ 'chat.btnlyric' | transloco }}</span>
       </button>
 
       <button
         (click)="generate('quote')"
         [disabled]="store.isLoading() || !store.userInput()"
-        class="bg-[var(--color-background)] hover:bg-Marsa-gold/10 hover:text-Marsa-gold text-[var(--color-foreground)] py-4 rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-30 cursor-pointer border border-[var(--color-Marsa-border)] hover:border-Marsa-gold/40 font-sans font-medium text-lg shadow-sm"
+        class="bg-[var(--color-background)] hover:bg-primary-accent/10 hover:text-primary-accent text-[var(--color-foreground)] py-4 rounded-full flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-30 cursor-pointer border border-[var(--color-glass-border)] hover:border-primary-accent/40 font-sans font-medium text-lg shadow-sm"
       >
-        <fa-icon [icon]="quoteIcon" class="text-[18px] text-Marsa-gold"></fa-icon>
-        <span>{{ lang() === 'ar' ? 'اقتباس' : 'Quote' }}</span>
+        <fa-icon [icon]="quoteIcon" class="text-[18px] text-primary-accent"></fa-icon>
+        <span>{{ 'chat.btnquote' | transloco }}</span>
       </button>
     </div>
 
     @if (store.isLoading()) {
       <div class="mt-8 flex flex-col items-center gap-3 animate-fade-in">
         <div class="flex gap-2">
-          <div class="w-1.5 h-1.5 bg-Marsa-gold rounded-full animate-bounce"></div>
-          <div class="w-1.5 h-1.5 bg-Marsa-gold rounded-full animate-bounce delay-150"></div>
-          <div class="w-1.5 h-1.5 bg-Marsa-gold rounded-full animate-bounce delay-300"></div>
+          <div class="w-1.5 h-1.5 bg-primary-accent rounded-full animate-bounce"></div>
+          <div class="w-1.5 h-1.5 bg-primary-accent rounded-full animate-bounce delay-150"></div>
+          <div class="w-1.5 h-1.5 bg-primary-accent rounded-full animate-bounce delay-300"></div>
         </div>
         <p
-          class="text-[12px] font-sans text-Marsa-gold tracking-wide uppercase opacity-90 font-medium"
+          class="text-[12px] font-sans text-primary-accent tracking-wide uppercase opacity-90 font-medium"
         >
-          {{ lang() === 'ar' ? 'جاري البحث...' : 'Searching...' }}
+          {{ 'chat.loading' | transloco }}
         </p>
       </div>
     }

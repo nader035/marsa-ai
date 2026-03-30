@@ -3,11 +3,12 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 // استيراد الأيقونات المطلوبة
 import { faMoon, faSun, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [FaIconComponent], // استخدام المكون مباشرة بدل الموديول
+  imports: [FaIconComponent, TranslocoPipe], 
   templateUrl: './navbar.html',
 })
 export class NavbarComponent {

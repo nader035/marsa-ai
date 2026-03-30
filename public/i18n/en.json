@@ -1,0 +1,28 @@
+{
+  "splash": {
+    "loading": "Preparing Marsa ..."
+  },
+  "navbar": {
+    "title": "Marsa",
+    "theme": "Theme",
+    "language": "العربية"
+  },
+  "chat": {
+    "placeholder": "What are you searching for?",
+    "btnquran": "Quran",
+    "btnlyric": "Lyric",
+    "btnquote": "Quote",
+    "loading": "Searching...",
+    "error_echo": "I sailed far but found no authentic echo.. try another word."
+  },
+  "card": {
+    "default_text": "An authentic text engine that dives deep into heritage to bring you the purest echoes.",
+    "default_author": "Marsa Engine",
+    "copy": "Copy",
+    "copied": "Copied!"
+  },
+  "footer": {
+    "text": "Made with",
+    "by": "Nader Mohammed"
+  }
+}

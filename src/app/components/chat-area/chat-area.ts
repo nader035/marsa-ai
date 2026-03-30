@@ -1,6 +1,7 @@
 import { Component, inject, computed, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { TranslocoPipe } from '@jsverse/transloco';
 // ⚠️ تم تغيير faSparkles إلى faWandMagicSparkles المجانية
 import {
   faWandMagicSparkles,
@@ -13,7 +14,7 @@ import { MarsaStore } from '../../store/marsa.store';
 @Component({
   selector: 'app-chat-area',
   standalone: true,
-  imports: [FormsModule, FaIconComponent],
+  imports: [FormsModule, FaIconComponent, TranslocoPipe],
   templateUrl: './chat-area.html',
   styleUrl: './chat-area.css',
 })

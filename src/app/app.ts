@@ -1,24 +1,30 @@
-import { Component, signal, effect, inject } from '@angular/core';
+import { Component, signal, effect, inject, OnInit } from '@angular/core';
 import { CardPreview } from './components/card-preview/card-preview';
 import { NavbarComponent } from './components/shared/navbar/navbar';
 import { ChatArea } from './components/chat-area/chat-area';
 import { FooterComponent } from './components/shared/footer/footer';
-import { MarsaStore } from './store/marsa.store'; // تأكد من صحة المسار للفولدر عندك
+import { MarsaStore } from './store/marsa.store'; 
+import { TranslocoService, TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ChatArea, CardPreview, NavbarComponent, FooterComponent],
+  imports: [ChatArea, CardPreview, NavbarComponent, FooterComponent, TranslocoPipe],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   // 1. حقن الـ Store للتحكم في الحالة العامة للتطبيق
   readonly store = inject(MarsaStore);
+  private translocoService = inject(TranslocoService);
 
   title = signal('Marsa');
   isDarkMode = signal(true);
   currentLang = signal<'ar' | 'en'>('ar');
+  
+  // Splash Screen State
+  showSplash = signal(true);
+  hideSplashAnim = signal(false);
 
   constructor() {
     /**
@@ -35,7 +41,20 @@ export class App {
 
       // ⚠️ تحديث اللغة داخل الـ Store لضمان دقة ردود الـ AI ورسائل الخطأ
       this.store.updateLang(lang);
+      
+      // Update Transloco active language
+      this.translocoService.setActiveLang(lang);
     });
+  }
+
+  ngOnInit() {
+    // Hide splash screen after 2.5 seconds
+    setTimeout(() => {
+      this.hideSplashAnim.set(true);
+      setTimeout(() => {
+        this.showSplash.set(false);
+      }, 800); // Wait for the fade out animation to finish
+    }, 2500);
   }
 
   /**

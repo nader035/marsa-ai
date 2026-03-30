@@ -4,12 +4,13 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faShareNodes, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { MarsaStore } from '../../store/marsa.store';
 import { ShareService } from '../../core/services/share.service';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-card-preview',
   standalone: true,
   // 2. تحديث الـ imports
-  imports: [FaIconComponent],
+  imports: [FaIconComponent, TranslocoPipe],
   templateUrl: './card-preview.html',
 })
 export class CardPreview {

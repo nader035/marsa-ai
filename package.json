@@ -34,6 +34,7 @@
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@google/generative-ai": "^0.24.1",
+    "@jsverse/transloco": "^8.2.1",
     "@ngrx/signals": "^21.0.1",
     "html-to-image": "^1.11.13",
     "rxjs": "~7.8.0",

@@ -1,4 +1,5 @@
+
 export const environment = {
-  production: false,
-  hfToken: '', 
+  production: true,
+  hfToken: ''
 };

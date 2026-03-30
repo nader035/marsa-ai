@@ -1,13 +1,13 @@
 <nav class="fixed top-0 left-0 w-full z-50 p-4 transition-all duration-500 animate-fade-in">
   <div
-    class="max-w-7xl mx-auto Marsa-glass rounded-full px-6 py-3 flex items-center justify-between shadow-sm"
+    class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex items-center justify-between shadow-sm"
   >
     <div class="flex items-center gap-2 cursor-pointer transition-transform hover:scale-105">
       <span class="font-sans font-bold text-xl tracking-wide text-[var(--color-foreground)]">
-        {{ lang() === 'ar' ? 'مَرسىء' : 'Marsa' }}
+        {{ 'navbar.title' | transloco }}
       </span>
       <span
-        class="text-[9px] uppercase tracking-widest text-Marsa-gold font-bold px-2 py-0.5 bg-Marsa-gold/10 border border-Marsa-gold/40 rounded-full"
+        class="text-[9px] uppercase tracking-widest text-primary-accent font-bold px-2 py-0.5 bg-primary-accent/10 border border-primary-accent/40 rounded-full"
       >
         AI
       </span>
@@ -18,27 +18,27 @@
         href="https://github.com/nader035/marsa-ai"
         target="_blank"
         class="p-2.5 rounded-full hover:bg-[var(--color-background)] text-[var(--color-foreground)] transition-colors opacity-80 hover:opacity-100 flex items-center justify-center"
-        [title]="lang() === 'ar' ? 'سورس كود ءمَرسى' : 'Marsa Source Code'"
+        [title]="'Marsa Source Code'"
       >
         <fa-icon [icon]="githubIcon" class="text-[20px]"></fa-icon>
       </a>
 
-      <div class="w-[1px] h-5 bg-[var(--color-Marsa-border)] mx-1"></div>
+      <div class="w-[1px] h-5 bg-[var(--color-glass-border)] mx-1"></div>
 
       <button
         (click)="toggleTheme.emit()"
         class="p-2.5 rounded-full hover:bg-[var(--color-background)] text-[var(--color-foreground)] transition-colors opacity-80 hover:opacity-100 flex items-center justify-center"
-        [title]="lang() === 'ar' ? 'تبديل المظهر' : 'Toggle Theme'"
+        [title]="'navbar.theme' | transloco"
       >
         <fa-icon [icon]="isDark() ? sunIcon : moonIcon" class="text-[20px]"></fa-icon>
       </button>
 
       <button
         (click)="toggleLang.emit()"
-        class="px-4 py-2 ml-1 rounded-full bg-[var(--color-background)] hover:bg-Marsa-gold/10 hover:text-Marsa-gold text-[var(--color-foreground)] transition-colors flex items-center gap-2 font-sans font-semibold text-sm border border-[var(--color-Marsa-border)] hover:border-Marsa-gold/40 shadow-sm"
+        class="px-4 py-2 ml-1 rounded-full bg-[var(--color-background)] hover:bg-primary-accent/10 hover:text-primary-accent text-[var(--color-foreground)] transition-colors flex items-center gap-2 font-sans font-semibold text-sm border border-[var(--color-glass-border)] hover:border-primary-accent/40 shadow-sm"
       >
         <fa-icon [icon]="langIcon" class="text-[16px]"></fa-icon>
-        <span>{{ lang() === 'ar' ? 'English' : 'عربي' }}</span>
+        <span>{{ 'navbar.language' | transloco }}</span>
       </button>
     </div>
   </div>

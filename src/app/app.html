@@ -1,3 +1,14 @@
+@if (showSplash()) {
+  <div class="splash-screen" [class.hidden-splash]="hideSplashAnim()">
+    <div class="wave-circle"></div>
+    <div class="wave-circle"></div>
+    <div class="wave-circle"></div>
+    <span class="absolute text-primary-accent font-sans font-bold text-sm tracking-widest uppercase mt-32 animate-pulse-slow">
+      {{ 'splash.loading' | transloco }}
+    </span>
+  </div>
+}
+
 <app-navbar
   [isDark]="isDarkMode()"
   [lang]="currentLang()"
@@ -7,13 +18,13 @@
 
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
   <div
-    class="absolute top-[10%] left-[-5%] w-[600px] h-[600px] blur-[150px] rounded-full transition-all duration-1000 animate-pulse"
+    class="absolute top-[10%] left-[-5%] w-[600px] h-[600px] blur-[150px] rounded-full transition-all duration-1000 animate-pulse-slow"
     [style.backgroundColor]="'var(--glow-color)'"
     [style.opacity]="isDarkMode() ? '0.6' : '0.4'"
   ></div>
 
   <div
-    class="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-Marsa-gold/5 blur-[120px] rounded-full transition-opacity duration-1000"
+    class="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-primary-accent/5 blur-[120px] rounded-full transition-opacity duration-1000"
     [class.opacity-0]="!isDarkMode()"
   ></div>
 </div>

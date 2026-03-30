@@ -1,6 +1,6 @@
 {
   "/marsa-api": {
-    "target": "https://router.huggingface.co",
+    "target": "https://router.huggingface.co/",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug",

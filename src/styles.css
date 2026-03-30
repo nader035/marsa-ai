@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* --- 1. الخطوط (Typography) --- */
+/* --- 1. Typography --- */
 @font-face {
   font-family: 'Myriad Pro';
   src: url('./assets/fonts/English/MYRIADPRO-REGULAR.woff2') format('woff2');
@@ -28,26 +28,29 @@
 
 @font-face {
   font-family: 'Myriad Arabic';
-  src: url('assets/fonts/Arabic/MMSFONTMyriadArabic-Bold.woff2') format('woff2');
+  src: url('./assets/fonts/Arabic/MMSFONTMyriadArabic-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
 }
 
-/* --- 2. محرك الألوان (Theme Engine) --- */
+/* --- 2. Theme Engine --- */
 @theme {
-  --color-Marsa-maroon: var(--accent-maroon);
-  --color-Marsa-gold: var(--accent-gold);
+  --color-primary-accent: var(--accent-primary);
+  --color-secondary-accent: var(--accent-secondary);
 
-  /* الأسماء النهائية مباشرة لمنع تعارض الألوان */
   --color-background: var(--color-background);
   --color-card: var(--color-card);
   --color-foreground: var(--color-foreground);
-  --color-Marsa-border: var(--color-Marsa-border);
+  --color-glass-border: var(--color-glass-border);
+  
+  --color-text-muted: var(--color-text-muted);
 
   --animate-fade-in: fade-in 1.2s ease-out forwards;
   --animate-scale-in: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
   --font-sans: 'Myriad Pro', 'Myriad Arabic', sans-serif;
 
   @keyframes fade-in {
@@ -70,37 +73,47 @@
       opacity: 1;
     }
   }
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: .5;
+    }
+  }
 }
 
-/* --- 3. المتغيرات (Variables) --- */
+/* --- 3. Variables --- */
 :root {
-  /* PURE DARK (الأساسي) */
-  --color-background: #0d0202;
-  --color-card: #1a0808;
-  --color-foreground: #f5f5f5; /* لون النص في الدارك (أبيض) */
-  --color-Marsa-border: rgba(197, 160, 89, 0.15);
+  /* DARK MODE (DEEP OCEAN / SLATE) */
+  --color-background: #020617; /* slate-950 */
+  --color-card: #0f172a; /* slate-900 */
+  --color-foreground: #f8fafc; /* slate-50 */
+  --color-text-muted: #94a3b8; /* slate-400 */
+  
+  --color-glass-border: rgba(56, 189, 248, 0.15); /* light sky blue border */
 
-  --accent-maroon: #4a0404;
-  --accent-gold: #c5a059;
-  --glow-color: rgba(74, 4, 4, 0.4);
+  --accent-primary: #0ea5e9; /* sky-500 */
+  --accent-secondary: #38bdf8; /* sky-400 */
+  --glow-color: rgba(14, 165, 233, 0.4);
 
   --current-font: 'Myriad Arabic', 'Myriad Pro', sans-serif;
 }
+
 body.light-theme {
-  /* TRUE LIGHT (الفاتح) */
-  --color-background: #f7f6f4; /* خلفية أوف وايت */
-  --color-card: #ffffff; /* كارت أبيض ناصع */
+  /* LIGHT MODE (OCEAN BREEZE) */
+  --color-background: #f1f5f9; /* slate-100 */
+  --color-card: #ffffff;
+  --color-foreground: #0f172a; /* slate-900 */
+  --color-text-muted: #64748b; /* slate-500 */
+  
+  --color-glass-border: rgba(14, 165, 233, 0.3);
 
-  /* ⚠️ التعديل هنا: خلينا لون النص هو نفس درجة الدارك الغامقة جداً */
-  --color-foreground: #0d0202;
-
-  --color-Marsa-border: rgba(197, 155, 58, 0.4); /* تقوية الحدود الذهبية شوية عشان تبان في الفاتح */
-
-  --accent-maroon: #8b1818;
-  --accent-gold: #c59b3a;
-  --glow-color: rgba(139, 24, 24, 0.08);
+  --accent-primary: #0284c7; /* sky-600 */
+  --accent-secondary: #0ea5e9; /* sky-500 */
+  --glow-color: rgba(14, 165, 233, 0.15);
 }
-/* تبديل الخطوط بناءً على الاتجاه */
+
 [dir='rtl'] {
   --current-font: 'Myriad Arabic', sans-serif;
 }
@@ -108,7 +121,7 @@ body.light-theme {
   --current-font: 'Myriad Pro', sans-serif;
 }
 
-/* --- 4. الإعدادات الأساسية (Base) --- */
+/* --- 4. Base Settings --- */
 @layer base {
   body {
     background-color: var(--color-background) !important;
@@ -119,34 +132,71 @@ body.light-theme {
     min-height: 100vh;
   }
 
-  #Marsa-card {
+  .marsa-card-container {
     background-color: var(--color-card) !important;
     color: var(--color-foreground) !important;
-    border: 1px solid var(--color-Marsa-border) !important;
+    border: 1px solid var(--color-glass-border) !important;
     box-shadow: 0 15px 40px -10px var(--glow-color);
     @apply transition-all duration-500 ease-in-out;
   }
 }
 
-/* --- 5. الأدوات المساعدة (Utilities) --- */
+/* --- 5. Utilities --- */
 @layer utilities {
-  .Marsa-glass {
-    /* تم التحديث هنا ليتوافق مع المتغيرات الجديدة */
+  .glass-panel {
     background-color: color-mix(in srgb, var(--color-card), transparent 20%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--color-Marsa-border);
+    border: 1px solid var(--color-glass-border);
   }
 
-  .text-glow-gold {
-    text-shadow: 0 0 12px color-mix(in srgb, var(--accent-gold), transparent 40%);
+  .text-glow-accent {
+    text-shadow: 0 0 12px color-mix(in srgb, var(--accent-secondary), transparent 40%);
   }
 
-  .gradient-Marsa {
-    background: linear-gradient(to right, var(--accent-gold), var(--accent-maroon));
+  .gradient-accent {
+    background: linear-gradient(to right, var(--accent-secondary), var(--accent-primary));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* SPLASH SCREEN CLASSES */
+  .splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-background);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+  }
+  .splash-screen.hidden-splash {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .wave-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-primary);
+    position: absolute;
+    animation: wave 2s infinite cubic-bezier(0.36, 0.11, 0.89, 0.32);
+    opacity: 0;
+  }
+  .wave-circle:nth-child(2) {
+    animation-delay: 0.6s;
+  }
+  .wave-circle:nth-child(3) {
+    animation-delay: 1.2s;
+  }
+  @keyframes wave {
+    0% { transform: scale(0.1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
   }
 }
 

@@ -16,7 +16,7 @@ export class AiService {
   private http = inject(HttpClient);
   private readonly apiKey = environment.hfToken;
 
-  private readonly apiUrl = '/marsa-api/v1/chat/completions';
+  private readonly apiUrl = '/marsa-api';
 
   async generateMarsaEcho(
     prompt: string,
@@ -42,19 +42,16 @@ export class AiService {
 
       [OUTPUT FORMAT]: TEXT | SOURCE
     `;
-
+    
+    const userPrompt = `SEARCH_REQUEST: [Category: ${type}] [Keyword: ${prompt}]. Output ONLY the result in format: TEXT | SOURCE.`;
+    
     const body = {
-      model: 'deepseek-ai/DeepSeek-V3', // تأكد من الاسم الصحيح للموديل
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { 
-          role: 'user', 
-          content: `SEARCH_REQUEST: [Category: ${type}] [Keyword: ${prompt}]. Output ONLY the result in format: TEXT | SOURCE.` 
-        },
-      ],
-      temperature: type === 'quran' ? 0.0 : 0.6,
-      max_tokens: 250,
-      presence_penalty: 0.6
+      inputs: `${systemPrompt}\n\nUser: ${userPrompt}\nAssistant:`,
+      parameters: {
+        max_new_tokens: 500,
+        temperature: type === 'quran' ? 0.0 : 0.7,
+        return_full_text: false
+      }
     };
 
     const headers = new HttpHeaders({
@@ -65,7 +62,7 @@ export class AiService {
     try {
       const response: any = await firstValueFrom(this.http.post(this.apiUrl, body, { headers }));
       
-      let rawResponse = response.choices[0].message.content.trim();
+      let rawResponse = response[0].generated_text.trim();
       
       // الخطوة السحرية: تنظيف أي "تفكير" أو مقدمات من الموديل
       rawResponse = this.cleanDeeply(rawResponse);

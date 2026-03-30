@@ -2,8 +2,8 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/marsa-api",
-      "destination": "https://router.huggingface.co/models/deepseek-ai/DeepSeek-V3"
+      "source": "/marsa-api/:path*",
+      "destination": "https://router.huggingface.co/:path*"
     },
     {
       "source": "/(.*)",

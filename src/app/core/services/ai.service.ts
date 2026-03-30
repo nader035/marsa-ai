@@ -46,14 +46,13 @@ export class AiService {
     const userPrompt = `SEARCH_REQUEST: [Category: ${type}] [Keyword: ${prompt}]. Output ONLY the result in format: TEXT | SOURCE.`;
     
     const body = {
-      model: "deepseek-ai/DeepSeek-V3:novita",
+      model: "deepseek-ai/DeepSeek-V3",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
       ],
-      temperature: type === 'quran' ? 0.0 : 0.6,
-      max_tokens: 250,
-      presence_penalty: 0.6
+      temperature: 0.7,
+      stream: false
     };
 
     const headers = new HttpHeaders({
